@@ -1,0 +1,65 @@
+---
+title: "London Bike Sharing Dataset Analysis"
+author: "Thomas Wu"
+date: "12/5/2019"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("analysis.R")
+library("knitr")
+library("leaflet")
+```
+## **Introduction**
+
+* As we all notice that sharing bike has already become a trend in our daily public transportation, you may wonder when was it start? Acually, sharing bike was blended into our life long time ago. It was just in 2 years ago companies like _Mobike_, _Lime_, or _uberBike_ made this system into individual companies. Back to 2015, London had already had an comprehensive sharing bike system. Sharing bike was more an government project than individual corperation 
+
+* The data is acquired from 3 source:
+
+  * Contains OS data Crown copyright and database rights 2016' and Geomni UK Map data and database rights [2019].
+  
+  * Then it is published by **Hristo Mavrodiev** two month ago in _Kaggle_
+
+* The dataset contains 17414 observations and 10 variables. The time series of the original is from **1/4/2015  00:00:00** to **1/3/2017  23:00:00**. And the purpose was to analyze how the London public bike sharing system usage is affacted by weather conditions, temperature, and seasonality.
+
+* However, for my own interest of seeing how the usage of the bike changed in 2015, I modified the dataset from **1/4/2015  00:00:00** to **1/1/2016  00:00:00** which contains 8667 observations. For me, I am mainly concerned about two variables, the timestamp and the counts(cnt). 
+
+* Original data cite: https://www.kaggle.com/hmavrodiev/london-bike-sharing-dataset#london_merged.csv
+
+## **Including Plots**
+
+```{r}
+
+library(plotly)
+bike_plot <- plot_ly(
+  x = ~`x`,
+  y = ~`y`,
+  mode = 'lines',
+  text = "Lodon Bike Sharing in 2015 ",
+  hovertext = paste0("Date = ", df_bike$date_col,
+                       "<br>",
+                       "Bike Shared = ", df_bike$value)
+) %>%
+  layout(
+    title = "Bike Sharing in 2015",
+    xaxis = list(title = "Time of the Year"),
+    yaxis = list(title = "Number of Bike Shared")
+  )
+bike_plot
+```
+
+## **Discussion**
+
+* Though my analysis, we can clearly see a trend that people tend to use bike in summer. This is suprising becuase I thought people are not likely to go out when it's hot. However, after I seach summer in London, summer tend to have the best weather condition in a year. Also, I find out that on July 9th, there were 72504 people used the sharing system. At first, I thought it was an outlier. However, it was the Largest walkout on the London Underground since 2002. More than 20,000 workers strike over pay and night shifts. The walkout  led to the paralysis of traffic. Thus, so many people used sharing bike. 
+
+* As this data shows the trend of using sharing bike was steady. Since it was a government program, government needed to know whether it worth of investment. Also, it might inspired current sharing bike company CEOs. They might inspired by data like this and then want to start an company.
+
+* By analysing this dataset, I can make a conclusion that in 2015, summer had the largest variation of the usage of sharing bike. Also, people tended to use less sharing bike in winter and spring becuase rainy and snowy days. 
+
+## **Reflection**
+* I always thought that sharing bike is a newborn industry in recent one or two years. However, this data from 2015 proved that it was already a well developed program four years ago. Also, this data analysis teaches me that do not make the decision too fast. When I saw the sudden spike of usage of sharing bike, my initial reaction was it is an outlier. However, after I digging more of the information, I found the reasonable explaination for the spike. Now I am more interested in discovering how did the sharing bike become to popular? Is it profitable? What other factors effect the usage of the sharing bike.  
+
+# **Code**
+
+* You can find the code in the **analysis.R** file
